@@ -1,1 +1,1 @@
-Reporting log files with django.
+Tailing log files from different paths with help of Django and Tornado.

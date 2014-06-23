@@ -1,13 +1,17 @@
 #!/usr/bin/python
+#import tornado
 from servicelog.models import ServiceList
 import subprocess
 import os
+from tornado.websocket import WebSocketHandler
+#import webtail.webtail
 '''
 Author: Reza Bakhshayeshi
 Email: reza.b2008@gmail.com
 Version: 0.1
 Tailing a log file and returning the output.
 '''
+
 
 def servicelog(log_name, *args):
     obj = ServiceList.objects.filter(log_name=log_name)

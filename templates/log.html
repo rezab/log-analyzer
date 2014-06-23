@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html style="background-color: aliceblue">
+
 <head>
-    <title>Details of {{ log_name }}</title>
-<!--    <meta http-equiv="refresh" content="5"> -->
+    <title>Details of {{ log_name }}
+    </title>
+
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;margin:0px auto;}
-.tg td{font-family:fantasy;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
-.tg th{font-family:fantasy;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
 </style>
 </head>
+
 <body>
 
 <h3 style="color: blue">Details of {{ log_name }}:</h3>
 {% if logs %}
-
-
 <table class="tg">
   <tr>
     <th class="tg-031e">Service Name</th>
@@ -23,8 +24,9 @@
   <tr>
     <td class="tg-031e">Log file</td>
     <td class="tg-031e">
-        <div style="height: 300px; overflow-y: auto">{{ logs|linebreaksbr }}</div></td>
+        <div style="height: 300px; overflow-y: auto; width: 1000px; overflow-x: auto;">{{ logs|linebreaksbr }}</div></td>
   </tr>
+
   <tr>
     <td class="tg-031e">Lines:</td>
     <td class="tg-031e">{{ inc }} / {{ nl }}</td>
@@ -54,13 +56,12 @@
                 <input type="submit" value="Refresh" />
             </form>
         </span>
-<!-- Not implemented yet!
         <span style="float: left;">
             <form action="." method="POST">{% csrf_token  %}
-                <input type="submit" name="live" value="Live" />
+                <input type="submit" value="Live" name="live" />
             </form>
         </span>
--->
+
     </td>
   </tr>
 </table>
