@@ -2,8 +2,7 @@
 <html style="background-color: aliceblue">
 
 <head>
-    <title>Details of {{ log_name }}
-    </title>
+    <title>Details of {{ log_name }}</title>
 
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;margin:0px auto;}
@@ -26,14 +25,17 @@
     <td class="tg-031e">
         <div style="height: 300px; overflow-y: auto; width: 1000px; overflow-x: auto;">{{ logs|linebreaksbr }}</div></td>
   </tr>
-
   <tr>
     <td class="tg-031e">Lines:</td>
-    <td class="tg-031e">{{ inc }} / {{ nl }}</td>
+    <td class="tg-031e">last {{ inc }} of {{ nl }}</td>
   </tr>
   <tr>
     <td class="tg-031e">File size:</td>
     <td class="tg-031e">{{ size }} bytes</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">File timestamp:</td>
+    <td class="tg-031e">{{ timestamp }}</td>
   </tr>
   <tr>
     <td class="tg-031e">Controls:</td>
@@ -61,7 +63,20 @@
                 <input type="submit" value="Live" name="live" />
             </form>
         </span>
-
+        <span style="float: left;">
+            <form action=".." >
+                <input type="submit" value="Back to list" name="back" />
+            </form>
+        </span>
+    </td>
+  </tr>
+  <tr>
+    <td class="tg-031e">Filter pattern:</td>
+    <td class="tg-031e">
+        <form action="." method="POST">{% csrf_token  %}
+        <input type="text" name="FilterText" placeholder="Example: 'Filter Text', Text2" style="width: 250px"><br>
+        <input type="submit" value="Submit">
+        </form>
     </td>
   </tr>
 </table>

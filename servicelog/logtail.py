@@ -1,6 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # Author: Reza Bakhshayeshi
 # Email: reza.b2008@gmail.com
+# Version: 0.2
  
 import tornado.websocket
 import os
@@ -53,16 +54,10 @@ def check_file():
         pass
 
 
-class MainHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.render('../templates/log.html')
-
-
 def main():
     parse_command_line()
     wsgi_app = tornado.wsgi.WSGIContainer(django.core.handlers.wsgi.WSGIHandler())
     application = tornado.web.Application([
-        (r'/', MainHandler),
         (r'/tail/', TailHandler),
         ('.*', tornado.web.FallbackHandler, dict(fallback=wsgi_app)),
         ])

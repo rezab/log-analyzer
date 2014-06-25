@@ -1,11 +1,10 @@
 #!/usr/bin/python
+# Author: Reza Bakhshayeshi
+# Email: reza.b2008@gmail.com
+# Version: 0.1
+
 from servicelog.models import ServiceList
-'''
-Author: Reza Bakhshayeshi
-Email: reza.b2008@gmail.com
-Version: 0.1
-Listing corresponding services of log files.
-'''
+
 
 def return_list():
     lists = []

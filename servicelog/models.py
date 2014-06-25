@@ -1,11 +1,8 @@
-from django.db import models
-'''
-Author: Reza Bakhshayeshi
-Email: reza.b2008@gmail.com
-Version: 0.1
-'''
+# Author: Reza Bakhshayeshi
+# Email: reza.b2008@gmail.com
+# Version: 0.1
 
-# Create your models here.
+from django.db import models
 
 
 class ServiceList(models.Model):
