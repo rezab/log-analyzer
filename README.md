@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <title>Log Analyzer Readme</title>
 <body>
@@ -16,8 +15,8 @@ PYTHONPATH=. DJANGO_SETTINGS_MODULE=LogAnalyzer.settings servicelog/logtail.py
 <h2>Requirements</h2>
 <p>
 In Ubuntu you need to install Django and Tornado.
-<code>apt-get install python-django</code>
-<code>apt-get install python-tornado</code>
+<p><code>apt-get install python-django</code></p>
+<p><code>apt-get install python-tornado</code></p>
 </p>
 </body>
 </html>
