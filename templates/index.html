@@ -8,14 +8,22 @@
 
 <h3 style="color: blue">Services list on localhost:</h3>
 {% if instance %}
-<ul style="color: crimson">
+
+<form action="" method="POST">{% csrf_token  %}
+<label>Select desired service(s) below:</label><br>
 {% for row in instance %}
-<li><a href="{{ row }}" style="color: brown">{{ row }}</a></li>
+<label style="display: compact"><input type="checkbox" name="select" value="{{ row }}" /></label>
+<a href="{{ row }}" style="color: brown">{{ row }}</a><br>
 {% endfor %}
+<br>
+<input type="submit" value="Select"/>
+</form>
+
+{{ req }}
 {% else %}
     <p>No services are available.</p>
 {% endif %}
-</ul>
+
 
 </body>
 </html>

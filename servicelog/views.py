@@ -1,6 +1,6 @@
 # Author: Reza Bakhshayeshi
 # Email: reza.b2008@gmail.com
-# Version: 0.2
+# Version: 0.3
 
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -13,10 +13,76 @@ def index(request):
     return HttpResponse(html)
 
 
-def servicelists(request):
-    instance = servicelist.return_list()
-    context = {'instance': instance}
-    return render(request, 'index.html', context)
+def servicelists(request, *args):
+    inc = 10
+    logs = ''
+    log_name = ''
+    global multreq
+    if request.POST.get('select', ''):
+        multreq = request.POST.getlist('select', '')
+        for i in multreq[:-1]:
+            logs += servicedetail.multiplelog(i, *args)
+            log_name += i + ", "
+        else:
+            logs += servicedetail.multiplelog(multreq[-1], *args)
+            log_name += multreq[-1]
+        context = {'logs': logs, 'inc': inc, 'log_name': log_name}
+        return render(request, 'multiple.html', context)
+
+    elif request.POST.get('more', ''):
+        req = request.POST.get('more')
+        inc = int(req) + 10
+        for i in multreq[:-1]:
+            logs += servicedetail.multiplelog(i, inc)
+            log_name += i + ", "
+        else:
+            logs += servicedetail.multiplelog(multreq[-1], inc)
+            log_name += multreq[-1]
+        context = {'logs': logs, 'inc': inc, 'log_name': log_name}
+        return render(request, 'multiple.html', context)
+
+    elif request.POST.get('less', ''):
+        req = request.POST.get('less')
+        inc = int(req) - 10
+        if inc == 0:
+            inc = 10
+        for i in multreq[:-1]:
+            logs += servicedetail.multiplelog(i, inc)
+            log_name += i + ", "
+        else:
+            logs += servicedetail.multiplelog(multreq[-1], inc)
+            log_name += multreq[-1]
+        context = {'logs': logs, 'inc': inc, 'log_name': log_name}
+        return render(request, 'multiple.html', context)
+
+    elif request.POST.get('refresh', ''):
+        inc = request.POST.get('refresh')
+        for i in multreq[:-1]:
+            logs += servicedetail.multiplelog(i, inc)
+            log_name += i + ", "
+        else:
+            logs += servicedetail.multiplelog(multreq[-1], inc)
+            log_name += multreq[-1]
+        context = {'logs': logs, 'inc': inc, 'log_name': log_name}
+        return render(request, 'multiple.html', context)
+
+    elif request.POST.get('FilterText', ''):
+        FilterText = request.POST.get('FilterText')
+        filtered, pt_nl = '', ''
+        for k in multreq:
+            filtered = servicedetail.logpattern(k, FilterText)[0]
+            pt_nl = servicedetail.logpattern(k, FilterText)[1]
+        for i in multreq[:-1]:
+            log_name += i + ", "
+        else:
+            log_name += multreq[-1]
+        context = {'log_name': log_name, 'pt_nl': pt_nl, 'inc': inc, 'filtered': filtered, 'FilterText': FilterText}
+        return render(request, 'filterlog2.html', context)
+
+    else:
+        instance = servicelist.return_list()
+        context = {'instance': instance}
+        return render(request, 'index.html', context)
 
 
 def servicedetails(request, log_name, *args):
