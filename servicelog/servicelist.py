@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # Author: Reza Bakhshayeshi
-# Email: reza.b2008@gmail.com
+# Email: reza.b2008 [at] gmail [dot] com
 # Version: 0.1
 
 from servicelog.models import ServiceList

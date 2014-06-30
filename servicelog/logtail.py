@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # Author: Reza Bakhshayeshi
-# Email: reza.b2008@gmail.com
-# Version: 0.2
- 
+# Email: reza.b2008 [at] gmail [dot] com
+# Version: 0.3
+
 import tornado.websocket
 import os
 from tornado.options import parse_command_line
@@ -54,16 +54,25 @@ def check_file():
         pass
 
 
-def main():
-    parse_command_line()
-    wsgi_app = tornado.wsgi.WSGIContainer(django.core.handlers.wsgi.WSGIHandler())
-    application = tornado.web.Application([
-        (r'/tail/', TailHandler),
-        ('.*', tornado.web.FallbackHandler, dict(fallback=wsgi_app)),
-        ])
+class Application(tornado.web.Application):
+    def __init__(self):
+        wsgi_app = tornado.wsgi.WSGIContainer(django.core.handlers.wsgi.WSGIHandler())
+        handlers = [
+            (r'/tail/', TailHandler),
+            ('.*', tornado.web.FallbackHandler, dict(fallback=wsgi_app)),
+        ]
+        settings = {
+            'template_path': '/home/localadmin/LogAnalyzer/templates/',
+            'static_path': '/usr/share/pyshared/django/contrib/admin/static/',
+        }
+        tornado.web.Application.__init__(self, handlers, **settings)
 
-    http_server = tornado.httpserver.HTTPServer(application)
-    http_server.listen(8001)
+
+if __name__ == '__main__':
+    tornado.options.parse_command_line()
+    app = Application()
+    server = tornado.httpserver.HTTPServer(app)
+    server.listen(8001)
     tailed_callback = tornado.ioloop.PeriodicCallback(check_file, 500)
     tailed_callback.start()
     io_loop = tornado.ioloop.IOLoop.instance()
@@ -72,7 +81,3 @@ def main():
     except SystemExit, KeyboardInterrupt:
         io_loop.stop()
         tailed_file.close()
-
-if __name__ == '__main__':
-    main()
-

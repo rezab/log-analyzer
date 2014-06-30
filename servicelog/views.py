@@ -1,5 +1,5 @@
 # Author: Reza Bakhshayeshi
-# Email: reza.b2008@gmail.com
+# Email: reza.b2008 [at] gmail [dot] com
 # Version: 0.3
 
 from django.shortcuts import render
