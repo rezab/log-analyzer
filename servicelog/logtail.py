@@ -62,8 +62,8 @@ class Application(tornado.web.Application):
             ('.*', tornado.web.FallbackHandler, dict(fallback=wsgi_app)),
         ]
         settings = {
-            'template_path': '/home/localadmin/LogAnalyzer/templates/',
-            'static_path': '/usr/share/pyshared/django/contrib/admin/static/',
+            'template_path': 'templates',
+            'static_path': 'static',
         }
         tornado.web.Application.__init__(self, handlers, **settings)
 
