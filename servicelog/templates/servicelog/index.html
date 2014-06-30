@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html style="background-color: aliceblue">
+<head>
+    <title>Services List</title>
+</head>
+<body>
+
+<h3 style="color: blue">Services list on localhost:</h3>
+{% if instance %}
+
+<form action="" method="POST">{% csrf_token  %}
+<label>Select desired services below or click on individual service for more details:</label><br>
+{% for row in instance %}
+<label style="display: compact"><input type="checkbox" name="select" value="{{ row }}" /></label>
+<a href="{{ row }}" style="color: brown">{{ row }}</a><br>
+{% endfor %}
+<br>
+<input type="submit" value="Select"/>
+</form>
+
+{% else %}
+    <p>No services are available.</p>
+{% endif %}
+
+</body>
+</html>

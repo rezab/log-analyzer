@@ -27,7 +27,7 @@ def servicelists(request, *args):
             logs += servicedetail.multiplelog(multreq[-1], *args)
             log_name += multreq[-1]
         context = {'logs': logs, 'inc': inc, 'log_name': log_name}
-        return render(request, 'multiple.html', context)
+        return render(request, 'servicelog/multiple.html', context)
 
     elif request.POST.get('more', ''):
         req = request.POST.get('more')
@@ -39,7 +39,7 @@ def servicelists(request, *args):
             logs += servicedetail.multiplelog(multreq[-1], inc)
             log_name += multreq[-1]
         context = {'logs': logs, 'inc': inc, 'log_name': log_name}
-        return render(request, 'multiple.html', context)
+        return render(request, 'servicelog/multiple.html', context)
 
     elif request.POST.get('less', ''):
         req = request.POST.get('less')
@@ -53,7 +53,7 @@ def servicelists(request, *args):
             logs += servicedetail.multiplelog(multreq[-1], inc)
             log_name += multreq[-1]
         context = {'logs': logs, 'inc': inc, 'log_name': log_name}
-        return render(request, 'multiple.html', context)
+        return render(request, 'servicelog/multiple.html', context)
 
     elif request.POST.get('refresh', ''):
         inc = request.POST.get('refresh')
@@ -64,7 +64,7 @@ def servicelists(request, *args):
             logs += servicedetail.multiplelog(multreq[-1], inc)
             log_name += multreq[-1]
         context = {'logs': logs, 'inc': inc, 'log_name': log_name}
-        return render(request, 'multiple.html', context)
+        return render(request, 'servicelog/multiple.html', context)
 
     elif request.POST.get('FilterText', ''):
         FilterText = request.POST.get('FilterText')
@@ -77,12 +77,12 @@ def servicelists(request, *args):
         else:
             log_name += multreq[-1]
         context = {'log_name': log_name, 'pt_nl': pt_nl, 'inc': inc, 'filtered': filtered, 'FilterText': FilterText}
-        return render(request, 'filterlog2.html', context)
+        return render(request, 'servicelog/filterlog2.html', context)
 
     else:
         instance = servicelist.return_list()
         context = {'instance': instance}
-        return render(request, 'index.html', context)
+        return render(request, 'servicelog/index.html', context)
 
 
 def servicedetails(request, log_name, *args):
@@ -95,7 +95,7 @@ def servicedetails(request, log_name, *args):
             inc = int(round(nl, -1))
             logs, nl, size, timestamp = servicedetail.servicelog(log_name, inc)
         context = {'log_name': log_name, 'logs': logs, 'nl': nl, 'inc': inc, 'size': size, 'timestamp': timestamp}
-        return render(request, 'log.html', context)
+        return render(request, 'servicelog/log.html', context)
 
     elif request.POST.get('less', ''):
         req = request.POST.get('less')
@@ -104,19 +104,19 @@ def servicedetails(request, log_name, *args):
             inc = 10
         logs, nl, size, timestamp = servicedetail.servicelog(log_name, inc)
         context = {'log_name': log_name, 'logs': logs, 'nl': nl, 'inc': inc, 'size': size, 'timestamp': timestamp}
-        return render(request, 'log.html', context)
+        return render(request, 'servicelog/log.html', context)
 
     elif request.POST.get('refresh', ''):
         inc = request.POST.get('refresh')
         logs, nl, size, timestamp = servicedetail.servicelog(log_name, inc)
         context = {'log_name': log_name, 'logs': logs, 'nl': nl, 'inc': inc, 'size': size, 'timestamp': timestamp}
-        return render(request, 'log.html', context)
+        return render(request, 'servicelog/log.html', context)
 
     elif request.POST.get('live', ''):
         obj = ServiceList.objects.filter(log_name=log_name)
         obj_path = obj[0].log_path
         context = {'log_name': log_name, 'obj_path': obj_path}
-        return render(request, 'livelog.html', context)
+        return render(request, 'servicelog/livelog.html', context)
 
     elif request.POST.get('FilterText', ''):
         FilterText = request.POST.get('FilterText')
@@ -124,9 +124,9 @@ def servicedetails(request, log_name, *args):
         logs, nl, size, timestamp = servicedetail.servicelog(log_name, inc)
         context = {'log_name': log_name, 'nl': nl, 'pt_nl': pt_nl, 'inc': inc, 'size': size,
                    'timestamp': timestamp, 'filtered': filtered, 'FilterText': FilterText}
-        return render(request, 'filterlog.html', context)
+        return render(request, 'servicelog/filterlog.html', context)
 
     else:
         logs, nl, size, timestamp = servicedetail.servicelog(log_name, *args)
         context = {'log_name': log_name, 'logs': logs, 'nl': nl, 'inc': inc, 'size': size, 'timestamp': timestamp}
-        return render(request, 'log.html', context)
+        return render(request, 'servicelog/log.html', context)

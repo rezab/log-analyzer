@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html style="background-color: aliceblue">
+
+<head>
+    <title>Details of {{ log_name }}</title>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;margin:0px auto;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+</style>
+</head>
+
+<body>
+
+<h3 style="color: blue">Details of {{ log_name }}:</h3>
+{% if log_name %}
+<table class="tg">
+  <tr>
+    <th class="tg-031e">Service Name</th>
+    <th class="tg-031e">{{ log_name }}</th>
+  </tr>
+
+  <tr>
+    <td class="tg-031e">Live</td>
+    <td class="tg-031e">
+        <div id="outer" style="height: 300px; overflow-y: auto; width: 1000px; overflow-x: auto;">
+    <div id="file"></div>
+            <script type="text/javascript" charset="utf-8">
+            function write_line(l) {
+                document.getElementById('file').innerHTML += '<p>' + l + '</p>';
+            }
+            if ("MozWebSocket" in window) {
+                WebSocket = MozWebSocket;
+            }
+            if (WebSocket) {
+                var ws = new WebSocket("ws://192.168.122.58:8001/tail/");
+                ws.onopen = function() {
+                    write_line("Websocket opened! Please wait for log file changes...");
+                    ws.send("{{ obj_path }}");
+                };
+                ws.onmessage = function (evt) {
+                    write_line(evt.data);
+                };
+                ws.onclose = function() {
+                    write_line("Oops! Connection closed...");
+                };
+            } else {
+                alert("WebSocket not supported");
+            }
+            </script>
+    </div></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">Controls:</td>
+    <td class="tg-031e">
+    <span style="float: left;">
+            <form action="" method="POST">{% csrf_token  %}
+                <input type="hidden" name="refresh" value="{{ inc }}" />
+                <input type="submit" value="Back" />
+            </form>
+    </span>
+    <span style="float: left;">
+            <form action="../" >
+                <input type="submit" value="Back to list" name="back" />
+            </form>
+    </span>
+    </td>
+  </tr>
+</table>
+
+{% else %}
+    <p>No details are available.</p>
+{% endif %}
+
+</body>
+</html>
