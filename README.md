@@ -7,12 +7,8 @@
 Log Analyzer is an opensource project, aims at Monitoring and Analyzing log files of different services.
 </p>
 
-<h2>Basic Usage</h2>
-<code>
-PYTHONPATH=. DJANGO_SETTINGS_MODULE=LogAnalyzer.settings servicelog/logtail.py
-</code>
 
-<h2>Requirements</h2>
+<h1>Requirements</h1>
 <p>
 Django and Tornado.
 </p>
@@ -21,20 +17,49 @@ Django and Tornado.
 <p><code>apt-get install python-tornado</code></p>
 </p>
 
-<h2>How to use this:</h2>
+<hr/>
+
+<h1>Installation</h1>
+
 <p>
 Config the database:
 </p>
 <p><code>python manage.py syncdb</code></p>
+While populating database, the user and password would be asked. use them to enter admin page.
 <p>
-Run server:
-</p>
-<p><code>python manage.py runserver 0:8000</code></p>
+
+TODO: config the static address path in servicelog/logtail.py
 <p>
+
+Make this file executable:
+
+<code>
+chmod +x servicelog/logtail.py
+</code>
+<p>
+
+Run Log Server:
+<p>
+<code>
+PYTHONPATH=. DJANGO_SETTINGS_MODULE=LogAnalyzer.settings servicelog/logtail.py
+</code>
+
+<hr/>
+
+<h1>Basic Usage</h1>
+
 Visit admin page:
 </p>
-<p><code>http://localhost:8000/admin</code></p>
+<p><code>http://localhost:8001/admin</code></p>
 
+Add log files in admin page.
+
+<p>
+Visit User Page:
+</p>
+<p><code>http://localhost:8001/servicelog/instance/</code></p>
+
+Enjoy it !
 
 </body>
 </html>

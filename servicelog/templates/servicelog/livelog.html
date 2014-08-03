@@ -34,7 +34,7 @@
                 WebSocket = MozWebSocket;
             }
             if (WebSocket) {
-                var ws = new WebSocket("ws://192.168.122.58:8001/tail/");
+                var ws = new WebSocket("ws://127.0.0.1:8001/tail/");
                 ws.onopen = function() {
                     write_line("Websocket opened! Please wait for log file changes...");
                     ws.send("{{ obj_path }}");
